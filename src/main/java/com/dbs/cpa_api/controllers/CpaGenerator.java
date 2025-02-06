@@ -2,7 +2,9 @@ package com.dbs.cpa_api.controllers;
 
 import com.dbs.cpa_api.dto.CpaGeneratorRequest;
 import com.dbs.cpa_api.dto.CriticalPathAnalysisOutputDataDto;
+import com.dbs.cpa_api.models.CpaRaw;
 import com.dbs.cpa_api.services.CpaGeneratorService;
+import com.dbs.cpa_api.services.ProcessWatcherServiceRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,9 +19,17 @@ public class CpaGenerator {
     @Autowired
     CpaGeneratorService cpaGeneratorService;
 
+    @Autowired
+    ProcessWatcherServiceRequest processWatcherServiceRequest;
+
     @PostMapping("/critical-path")
     public List<CriticalPathAnalysisOutputDataDto> generateCpaData(@Valid @RequestBody CpaGeneratorRequest cpaGeneratorRequest) {
         return cpaGeneratorService.generateCPAPath(cpaGeneratorRequest);
+    }
+
+    @PostMapping("/cpa-intermediate")
+    public Boolean processCpaIntermediate(@RequestBody List<CpaRaw> cpaRaws) {
+        return processWatcherServiceRequest.processCpaIntermediate(cpaRaws);
     }
 
 

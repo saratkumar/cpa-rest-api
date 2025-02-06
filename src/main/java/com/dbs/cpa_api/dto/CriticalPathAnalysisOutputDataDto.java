@@ -19,8 +19,10 @@ public class CriticalPathAnalysisOutputDataDto {
 
     private int duration;
 
-    private int legs;
+    private String legs;
 
     private String entity;
+
+
 
 }

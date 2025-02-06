@@ -23,4 +23,6 @@ public class CpaGeneratorRequest {
 
     @NotBlank(message = "Entity is required.")
     private String entity;
+
+    private Boolean isDefault;
 }
