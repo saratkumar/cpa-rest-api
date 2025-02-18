@@ -27,10 +27,5 @@ public class CpaGenerator {
         return cpaGeneratorService.generateCPAPath(cpaGeneratorRequest);
     }
 
-    @PostMapping("/cpa-intermediate")
-    public Boolean processCpaIntermediate(@RequestBody List<CpaRaw> cpaRaws) {
-        return processWatcherServiceRequest.processCpaIntermediate(cpaRaws);
-    }
-
 
 }
