@@ -1,16 +1,14 @@
 package com.dbs.cpa_api.controllers;
 
+import com.dbs.cpa_api.dto.CpaEtaDto;
+import com.dbs.cpa_api.dto.CpaEtaRequest;
 import com.dbs.cpa_api.dto.CpaGeneratorRequest;
 import com.dbs.cpa_api.dto.CriticalPathAnalysisOutputDataDto;
-import com.dbs.cpa_api.models.CpaRaw;
+import com.dbs.cpa_api.services.CpaEtaService;
 import com.dbs.cpa_api.services.CpaGeneratorService;
-import com.dbs.cpa_api.services.ProcessWatcherServiceRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,11 +18,17 @@ public class CpaGenerator {
     CpaGeneratorService cpaGeneratorService;
 
     @Autowired
-    ProcessWatcherServiceRequest processWatcherServiceRequest;
+    CpaEtaService cpaEtaService;
 
     @PostMapping("/critical-path")
     public List<CriticalPathAnalysisOutputDataDto> generateCpaData(@Valid @RequestBody CpaGeneratorRequest cpaGeneratorRequest) {
         return cpaGeneratorService.generateCPAPath(cpaGeneratorRequest);
+    }
+
+
+    @PostMapping("/get-eta")
+    public List<CpaEtaDto> getEta(@RequestBody CpaEtaRequest cpaEtaRequest) {
+        return cpaEtaService.fetchEta(cpaEtaRequest);
     }
 
 

@@ -23,6 +23,6 @@ public class CriticalPathAnalysisOutputDataDto {
 
     private String entity;
 
-
+    private String sysParam;
 
 }

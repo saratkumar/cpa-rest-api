@@ -30,4 +30,6 @@ public class CriticalPathAnalysisOutputData {
 
     private String entity;
 
+    private String sysParam;
+
 }
