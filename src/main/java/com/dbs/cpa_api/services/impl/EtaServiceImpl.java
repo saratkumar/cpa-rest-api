@@ -34,7 +34,7 @@ public class EtaServiceImpl implements CpaEtaService {
 
 
     @Override
-    public List<CpaJobHistoryDto>  getJobHistory(JobHistoryRequest jobHistoryRequest) {
+    public CpaJobHistoryDto getJobHistory(JobHistoryRequest jobHistoryRequest) {
 
       List<CpaEta> cpaEtas = cpaEtaRespository.findByJobNameAndAppCodeAndEntityAndBusinessDateBetween(
               jobHistoryRequest.getJobName(),
@@ -43,19 +43,24 @@ public class EtaServiceImpl implements CpaEtaService {
               jobHistoryRequest.getStartDate(),
               jobHistoryRequest.getEndDate()
       );
-      List<CpaJobHistoryDto> cpaJobHistoryDtos = new ArrayList<>(cpaEtas.size());
+      CpaJobHistoryDto cpaJobHistoryDto = new CpaJobHistoryDto();
+      List<CpaJobHistoryDto.CpaEtaHistory> cpaJobHistory = new ArrayList<>(cpaEtas.size());
       cpaEtas.forEach(e -> {
-          CpaJobHistoryDto cpaJobHistoryDto = new CpaJobHistoryDto();
-          cpaJobHistoryDto.setBusinessDate(e.getBusinessDate());
-          cpaJobHistoryDto.setStartDateTime(e.getCpaRaw().getJobStartDateTime());
-          cpaJobHistoryDto.setEndDateTime(e.getCpaRaw().getJobEndDateTime());
-          cpaJobHistoryDto.setStartDelay(e.getStartDelay());
-          cpaJobHistoryDto.setEndDelay(e.getEndDelay());
-          cpaJobHistoryDto.setId(e.getId());
-          cpaJobHistoryDtos.add(cpaJobHistoryDto);
+          CpaJobHistoryDto.CpaEtaHistory cpaEtaHistory = new CpaJobHistoryDto.CpaEtaHistory();
+          cpaEtaHistory.setBusinessDate(e.getBusinessDate());
+          cpaEtaHistory.setStartDateTime(e.getCpaRaw().getJobStartDateTime());
+          cpaEtaHistory.setEndDateTime(e.getCpaRaw().getJobEndDateTime());
+          cpaEtaHistory.setStartDelay(e.getStartDelay());
+          cpaEtaHistory.setEndDelay(e.getEndDelay());
+          cpaEtaHistory.setId(e.getId());
+          cpaJobHistory.add(cpaEtaHistory);
       });
 
-      return cpaJobHistoryDtos;
+      cpaJobHistoryDto.setCpaEtaHistories(cpaJobHistory);
+      cpaJobHistoryDto.setStartTime(cpaEtas.get(0).getCpaEtaConfig().getStartTime());
+      cpaJobHistoryDto.setEndTime(cpaEtas.get(0).getCpaEtaConfig().getEndTime());
+
+      return cpaJobHistoryDto;
 
     }
 }

@@ -12,6 +12,6 @@ public interface CpaEtaService {
     List<CpaEtaDto> fetchEta(CpaEtaRequest cpaEtaRequest);
 
 
-    List<CpaJobHistoryDto> getJobHistory(JobHistoryRequest jobHistoryRequest);
+    CpaJobHistoryDto getJobHistory(JobHistoryRequest jobHistoryRequest);
 
 }

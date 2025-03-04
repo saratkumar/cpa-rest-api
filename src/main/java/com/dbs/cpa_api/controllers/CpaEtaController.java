@@ -24,7 +24,7 @@ public class CpaEtaController {
     }
 
     @PostMapping("/job-history")
-    public List<CpaJobHistoryDto> getListEta(@RequestBody JobHistoryRequest cpaHistoricalRequest) {
+    public CpaJobHistoryDto getListEta(@RequestBody JobHistoryRequest cpaHistoricalRequest) {
         return cpaEtaService.getJobHistory(cpaHistoricalRequest);
     }
 

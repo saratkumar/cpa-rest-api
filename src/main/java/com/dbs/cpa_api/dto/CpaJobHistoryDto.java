@@ -7,20 +7,33 @@ import lombok.Setter;
 
 import java.sql.Time;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
 public class CpaJobHistoryDto {
+    List<CpaEtaHistory> cpaEtaHistories;
 
-    private long id;
+    private Time startTime;
 
-    private String businessDate;
+    private Time endTime;
 
-    private LocalDateTime startDateTime;
+    @Getter
+    @Setter
+    public static class CpaEtaHistory {
+        private long id;
 
-    private LocalDateTime EndDateTime;
+        private String businessDate;
 
-    private Time startDelay;
+        private LocalDateTime startDateTime;
 
-    private Time endDelay;
+        private LocalDateTime EndDateTime;
+
+        private Time startDelay;
+
+        private Time endDelay;
+    }
+
+
+
 }
