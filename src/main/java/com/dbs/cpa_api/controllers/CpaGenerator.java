@@ -26,10 +26,4 @@ public class CpaGenerator {
     }
 
 
-    @PostMapping("/get-eta")
-    public List<CpaEtaDto> getEta(@RequestBody CpaEtaRequest cpaEtaRequest) {
-        return cpaEtaService.fetchEta(cpaEtaRequest);
-    }
-
-
 }

@@ -18,5 +18,6 @@ public interface CpaEtaRespository extends JpaRepository<CpaEta, Long> {
                                          @Param("businessDate") String businessDate,
                                          @Param("entity") String entity);
 
+    List<CpaEta> findByJobNameAndAppCodeAndEntityAndBusinessDateBetween(String jobName, String appCode, String entity, String startDate, String endDate);
 
 }
