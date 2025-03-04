@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 
@@ -25,9 +26,9 @@ public class CpaRaw {
 
     private String entity;
 
-    private Date jobStartDateTime;
+    private LocalDateTime jobStartDateTime;
 
-    private Date jobEndDateTime;
+    private LocalDateTime jobEndDateTime;
 
     private int duration;
 

@@ -22,4 +22,6 @@ public class CpaRootNodeConfig {
     private String JobName;
 
     private String predecessorSystems;
+
+    private String lastJob;
 }

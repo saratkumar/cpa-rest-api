@@ -20,6 +20,8 @@ public class CpaJobStatus {
 
     private String status;
 
-    private String targetJob;
+    private String target;
+
+    private String entity;
 
 }
