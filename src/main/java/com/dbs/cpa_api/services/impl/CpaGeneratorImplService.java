@@ -5,6 +5,7 @@ import com.dbs.cpa_api.dto.CriticalPathAnalysisOutputDataDto;
 import com.dbs.cpa_api.mapper.CPAOutputDataMapper;
 import com.dbs.cpa_api.models.*;
 import com.dbs.cpa_api.repository.*;
+import com.dbs.cpa_api.services.CpaEtaService;
 import com.dbs.cpa_api.services.CpaGeneratorService;
 import com.dbs.cpa_api.services.ProcessWatcherServiceRequest;
 import org.slf4j.Logger;
@@ -33,6 +34,9 @@ public class CpaGeneratorImplService implements CpaGeneratorService {
 
     @Autowired
     CpaJobStatusRepository cpaJobStatusRepository;
+
+    @Autowired
+    CpaEtaService etaService;
 
     Map<String, String> configMap = new HashMap<>();
 
@@ -70,7 +74,13 @@ public class CpaGeneratorImplService implements CpaGeneratorService {
                     }
                 }
             } else { // If request comes from UI and if default is true then just return data from cpa_output table
-                criticalPathAnalysisOutputDataDtos =  fetchCpaOutputRecords(cpaGeneratorRequest, systems);
+                CpaJobStatus cpaJobStatus = cpaJobStatusRepository.findTopByOrderByIdDesc();
+                CpaGeneratorRequest cpaGeneratorRequest1 = new CpaGeneratorRequest();
+                cpaGeneratorRequest1.setEntity(cpaJobStatus.getEntity());
+                cpaGeneratorRequest1.setBusinessDate(cpaJobStatus.getBusinessDate());
+                cpaGeneratorRequest1.setSystem(cpaJobStatus.getAppCode());
+                cpaGeneratorRequest1.setJobName(cpaJobStatus.getTarget());
+                criticalPathAnalysisOutputDataDtos =  fetchCpaOutputRecords(cpaGeneratorRequest1, new String[]{cpaJobStatus.getAppCode()});
             }
         } catch (Exception e) {
             logger.error(e.getMessage());
